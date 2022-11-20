@@ -1,3 +1,6 @@
+#### todos
+[] tailwind e flowbite
+
 # mars-rover-vue-v1
 Lo scopo di questo progetto è immaginare e poi sviluppare una interfaccia frontend basata sulle 3 API attualmente disponibili su heroku. 
 
