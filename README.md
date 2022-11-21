@@ -1,5 +1,7 @@
-#### todos
-- nothing to see there.
+- provare il lazy loading nei componenti axios? (animazioni on load...)
+- componente SendRoverCommands([])
+- gestire gli errori axios
+
 
 # mars-rover-vue-v1
 link: https://mars-rover-vue-v1.netlify.app/
