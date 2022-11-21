@@ -1,10 +1,10 @@
 
 <template>
 <nav>
-  <div class="logo flex">
-    <img src="https://cdn3.iconfinder.com/data/icons/planets-1/512/Mars-64.png" alt="mars rover logo">
-    <h1>Mars Rover (vue edition)</h1>
-  </div>
+    <router-link to="/" class="logo flex items-center mb-4">
+      <img class="w-10" src="@/assets/marsRoverLogo.webp" alt="mars rover logo">
+      <h1 class="ml-2 text-black">Mars Rover (vue edition)</h1>
+    </router-link>
   </nav>
     
 </template>
