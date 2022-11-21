@@ -3,7 +3,7 @@
   <div class="container">
     <h2>Rover API list</h2>
   <p class="subtitle text-slate-600">La lista delle API pubblicamente disponibile del Rover.</p>
-  <ul class="mt-2">
+  <ul class="mt-5">
     <li v-for="api in roverAPIs" class="bg-slate-100 mb-2 p-2 hover:bg-slate-200">
       <router-link :to="api.path">
         <b class="underline">{{ api.path }}</b> 

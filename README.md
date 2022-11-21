@@ -1,8 +1,9 @@
 #### todos
-[] tailwind e flowbite
+- nothing to see there.
 
 # mars-rover-vue-v1
-Lo scopo di questo progetto è immaginare e poi sviluppare una interfaccia frontend basata sulle 3 API attualmente disponibili su heroku. 
+link: https://mars-rover-vue-v1.netlify.app/
+Lo scopo di questo progetto è sviluppare un'interfaccia frontend basata sulle API attualmente disponibili su heroku. 
 
 Le API disponibili sono queste:
 * (get) /roverInfo
