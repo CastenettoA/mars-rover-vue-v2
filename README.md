@@ -1,6 +1,3 @@
-#### todos
-- nothing to see there.
-
 # mars-rover-vue-v1
 link: https://mars-rover-vue-v1.netlify.app/
 
