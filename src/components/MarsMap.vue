@@ -1,13 +1,14 @@
 
 <template>
   <div class="container">
+    <MoveRoverInput></MoveRoverInput>
     <h2>Mars Map</h2>
     <p class="subtitle text-slate-600">La mappa di Marte, con gli ostacoli <img src="@/assets/map/obstacle.png" class="w-5 inline-block">, il rover <img src="@/assets/map/rover.png" class="w-5 inline-block"> e le coordinate.</p>
 
     <!-- todo: 
       1. display the map in font end
       2. make it reusable  -->
-    <div class="marsMapContainer flex flex-wrap-reverse mt-4">
+    <div v-if="marsMapInfo.mapGrid" class="marsMapContainer flex flex-wrap-reverse mt-4">
       <template v-for="(pos, i) in marsMapInfo.mapGrid">
           <div class="mapPoint p-2 bg-slate-200 relative border-4 border-white hover:bg-slate-400 transition-colors"
                :class="{ rover : isRover(pos), obstacle: isObstacle(pos) }"
@@ -19,14 +20,32 @@
           <div v-if="pos.x == 6" class="basis-full"></div> <!-- new line tricks; todo: make dynamic -->
       </template>
     </div>
+
+    <div v-else role="status" class="max-w-sm animate-pulse my-4">
+      <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+      <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4 mt-8"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+      <span class="sr-only">Loading...</span>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import MoveRoverInput from '@/components/MoveRoverInput.vue'
 
 export default {
   name: 'MarsMap',
+  components: {MoveRoverInput},
   data() {
     return {
       marsMapInfo: [],
@@ -58,7 +77,9 @@ export default {
   },
 
   async mounted() {
-    this.fetchMapInfos();
+    setTimeout( async ()=> {
+      this.fetchMapInfos();
+    }, 1000)
   }
 }
 </script>
