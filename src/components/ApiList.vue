@@ -3,9 +3,10 @@
   <div class="container">
     <h2>Rover API list</h2>
   <p class="subtitle text-slate-600">La lista delle API pubblicamente disponibile del Rover.</p>
-  <ul class="mt-5" v-if="roverAPIs.length">
-    <li v-for="api in roverAPIs" class="bg-slate-100 mb-2 p-2 hover:bg-slate-200">
-      <router-link :to="api.path">
+
+  <ul class="mt-5" v-if="apiList.length > 0">
+    <li v-for="api in apiList" class="bg-slate-100 mb-2 p-2 hover:bg-slate-200">
+      <router-link :to="'/apiDocs'+api.path">
         <b class="underline">{{ api.path }}</b> 
       </router-link>
        <small> ({{ api.type }})</small>
@@ -33,29 +34,28 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   name: 'DisplayApis',
   data() {
     return {
-      roverAPIs: []
     }
   },
 
-  methods: {
-    async fetchRoverAPisList() {
-      //a syncronous approach: https://v2.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html?redirect=true
-      const r = await axios.get('https://stormy-meadow-92152.herokuapp.com/routeListJson')
-      this.roverAPIs = r.data;
-    },
+  computed: {
+    apiList() {
+      return this.$store.getters.getApiList;
+    }
   },
 
-  async mounted() {
-    setTimeout(async () => { // todo: remove fake latency
-      await this.fetchRoverAPisList();
+  mounted() {
+    if(this.apiList.length <= 0) {
+      // apiList is undefined. Do a fetch req.
+      setTimeout(() => { // todo: remove fake latency
+        console.log('store api list is void. Launch new Request')
+        this.$store.dispatch('fetchApiList');
     }, 1000);
-  }
+    } 
+  },
 }
 </script>
 
