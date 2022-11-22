@@ -1,13 +1,11 @@
 
 <template>
   <div class="container">
-    <MoveRoverInput></MoveRoverInput>
+    <MoveRoverInput @update-map="fetchMapInfos"></MoveRoverInput>
+    
     <h2>Mars Map</h2>
     <p class="subtitle text-slate-600">La mappa di Marte, con gli ostacoli <img src="@/assets/map/obstacle.png" class="w-5 inline-block">, il rover <img src="@/assets/map/rover.png" class="w-5 inline-block"> e le coordinate.</p>
 
-    <!-- todo: 
-      1. display the map in font end
-      2. make it reusable  -->
     <div v-if="marsMapInfo.mapGrid" class="marsMapContainer flex flex-wrap-reverse mt-4">
       <template v-for="(pos, i) in marsMapInfo.mapGrid">
           <div class="mapPoint p-2 bg-slate-200 relative border-4 border-white hover:bg-slate-400 transition-colors"
@@ -15,6 +13,7 @@
                style="width: 64px; height: 64px;">
                <span class="mapPosition absolute bottom-0 left-0 text-xs font-bold bg-opacity-80 bg-white rounded-sm">x:{{pos.x}} y:{{pos.y}}</span>
                <span v-if="isRover(pos)" class="rover-img"><img src="@/assets/map/rover.png" alt="i'm the rover, folks!"></span>
+               <span v-if="isRover(pos)" class="rover-direction font-bold text-3xl" :class="this.marsMapInfo.roverDirection">&laquo;</span>
                <span v-if="isObstacle(pos)" class="obstacle-img"><img src="@/assets/map/obstacle.png" alt="is a strange obstacle in the map"></span>
           </div>
           <div v-if="pos.x == 6" class="basis-full"></div> <!-- new line tricks; todo: make dynamic -->
@@ -52,8 +51,14 @@ export default {
       marsMapCounter: 0
     }
   },
-
   methods: {
+
+    // // check if the rover is in the position, if is return rover direction and make it a class to add css style
+    // returnDirectionClass_ifNeeded(pos) {
+    //   if(this.isRover(pos))
+    //     return this.marsMapInfo.roverDirection;
+    // },
+
     /** check if the rover is in this position; return true if is. */
     isRover(pos) {
       return (this.marsMapInfo.roverPosition.x == pos.x && this.marsMapInfo.roverPosition.y == pos.y) ? true : false;
@@ -90,11 +95,12 @@ export default {
     @apply bg-amber-300;
   }
 
-  .obstacle {
-    // @apply bg-orange-200;
+  // direction styling for the rover in the map
+  .rover-direction {
+    position: absolute;
   }
-
-  // .rover-img, .obstacle-img {
-  //   max-width: 50%;
-  // }
+  .rover-direction.N { top: -17px; left: 40%; transform: rotate(90deg); }
+  .rover-direction.E { top: 22%; right: -6px; transform: rotate(180deg); } 
+  .rover-direction.S { bottom: -17px; right: 36%; transform: rotate(270deg); } 
+  .rover-direction.W { top: 15%; left: -5px; }
 </style>
