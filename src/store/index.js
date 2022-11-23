@@ -40,7 +40,7 @@ export default createStore({
       if(options.toastStatus == true) {
         setTimeout(()=> {
           commit("TOGGLE_TOAST", {toastStatus: false})
-        }, 3500);
+        }, 3500); // todo: set-timeout not work so well with multiple command
       }
     }
   },
