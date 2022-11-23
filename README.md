@@ -1,4 +1,4 @@
-# mars-rover-vue-v1
+# Mars Rover (vue edition) 🪐🤖
 link: https://mars-rover-vue-v1.netlify.app/
 
 Questa è l'interfaccia front-end creata con Vue per visualizzare e muovere il rover su marte (attraverso le mars-rover-api)
