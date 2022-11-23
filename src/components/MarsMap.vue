@@ -1,9 +1,7 @@
 
 <template>
   <div class="container">
-    <MoveRoverInput @update-map="fetchMapInfos(true)"></MoveRoverInput>
-    
-    <h2>Mars Map</h2>
+    <h2>Mappa</h2>
     <p class="subtitle text-slate-600">La mappa di Marte, con gli ostacoli <img src="@/assets/map/obstacle.png" class="w-5 inline-block">, il rover <img src="@/assets/map/rover.png" class="w-5 inline-block"> e le coordinate.</p>
 
     <div v-if="marsMapInfo.mapGrid" class="marsMapContainer flex flex-wrap-reverse mt-4">
@@ -21,6 +19,11 @@
     </div>
 
     <Skeleton v-else></Skeleton>
+
+    <h2 class="mt-10">Form per muovere il rover</h2>
+    <p>Accetta i comandi (f,b,l,r). Inserisci i comandi divisi da una virgola.</p>
+    <MoveRoverInput @update-map="fetchMapInfos(true)"></MoveRoverInput>
+
   </div>
 </template>
 
@@ -58,7 +61,7 @@ export default {
       const r = await axios.get(process.env.VUE_APP_ROVER_API_BASE_URL + 'mapInfo');
       this.marsMapInfo = r.data;
 
-      if(showToast) this.$store.dispatch('toggleToast', {toastStatus: true}); // show toast
+      // if(showToast) this.$store.dispatch('toggleToast', {toastStatus: true}); // show toast
       // todo: manage error handling
     },
   },
