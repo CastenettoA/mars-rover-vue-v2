@@ -1,7 +1,7 @@
 
 <template>
   <div class="container">
-    <MoveRoverInput @update-map="fetchMapInfos"></MoveRoverInput>
+    <MoveRoverInput @update-map="fetchMapInfos(true)"></MoveRoverInput>
     
     <h2>Mars Map</h2>
     <p class="subtitle text-slate-600">La mappa di Marte, con gli ostacoli <img src="@/assets/map/obstacle.png" class="w-5 inline-block">, il rover <img src="@/assets/map/rover.png" class="w-5 inline-block"> e le coordinate.</p>
@@ -20,31 +20,18 @@
       </template>
     </div>
 
-    <div v-else role="status" class="max-w-sm animate-pulse my-4">
-      <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-      <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4 mt-8"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-      <span class="sr-only">Loading...</span>
-    </div>
+    <Skeleton v-else></Skeleton>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import MoveRoverInput from '@/components/MoveRoverInput.vue'
+import Skeleton from '@/components/utils/Skeleton.vue'
 
 export default {
   name: 'MarsMap',
-  components: {MoveRoverInput},
+  components: {MoveRoverInput, Skeleton},
   data() {
     return {
       marsMapInfo: [],
@@ -52,13 +39,6 @@ export default {
     }
   },
   methods: {
-
-    // // check if the rover is in the position, if is return rover direction and make it a class to add css style
-    // returnDirectionClass_ifNeeded(pos) {
-    //   if(this.isRover(pos))
-    //     return this.marsMapInfo.roverDirection;
-    // },
-
     /** check if the rover is in this position; return true if is. */
     isRover(pos) {
       return (this.marsMapInfo.roverPosition.x == pos.x && this.marsMapInfo.roverPosition.y == pos.y) ? true : false;
@@ -74,9 +54,11 @@ export default {
     },
 
     // fetch mars map infos from the MarsRoverApi services
-    async fetchMapInfos() {
+    async fetchMapInfos(showToast) {
       const r = await axios.get(process.env.VUE_APP_ROVER_API_BASE_URL + 'mapInfo');
       this.marsMapInfo = r.data;
+
+      if(showToast) this.$store.dispatch('toggleToast', {toastStatus: true}); // show toast
       // todo: manage error handling
     },
   },
