@@ -31,11 +31,11 @@ export default {
         .then(function(res){ 
           console.log(res)
           self.$emit('updateMap'); // updating the map after the send of command
-          self.$store.dispatch('toggleToast', {toastStatus: true, toastMessage: `${res.status}(${res.statusText} --> "${res.data.message}")`}); // show toast 
+          self.$store.dispatch('toggleToast', {toastStatus: true, toastMessage: `${res.data.message}`}); // show toast 
         })
         .catch(function(err){ 
           // show a toast with error from server
-          self.$store.dispatch('toggleToast', {toastStatus: true, toastMessage: `${err.code}(${err.response.status} --> "${err.response.data.message}")`}); // show toast 
+          self.$store.dispatch('toggleToast', {toastStatus: true, toastMessage: `${err.response.data.message}`}); // show toast 
         })
     }
   },

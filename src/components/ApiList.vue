@@ -6,7 +6,7 @@
 
   <ul class="mt-5" v-if="apiList.length > 0">
     <li v-for="api in apiList" class="bg-slate-100 mb-2 p-2 hover:bg-slate-200">
-      <router-link to="/">
+      <router-link to="/apiEndpointList">
       <!-- <router-link :to="'/apiDocs'+api.path"> -->
         <b class="underline">{{ api.path }}</b> 
       </router-link>
