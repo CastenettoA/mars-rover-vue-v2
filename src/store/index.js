@@ -5,11 +5,13 @@ import { setTimeout } from 'core-js';
 export default createStore({
   state: {
       apiList: [], // api endpoint list
-      toastStatus: false // app toast message status
+      toastStatus: false, // app toast message status
+      toastMessage: "Rover mosso con successo." // app toast message
   },
   getters: {
     getApiList: (state) => state.apiList,
     getToastStatus: (state) => state.toastStatus,
+    getToastMessage: (state) => state.toastMessage,
   },
   mutations: {
     SET_API_LIST(state, apis) {
@@ -17,7 +19,8 @@ export default createStore({
     },
 
     TOGGLE_TOAST(state, options) {
-      state.toastStatus = options.toastStatus
+      state.toastStatus = options.toastStatus;
+      if(options.toastMessage) state.toastMessage = options.toastMessage;
     }
   },
   actions: {
@@ -37,7 +40,7 @@ export default createStore({
       if(options.toastStatus == true) {
         setTimeout(()=> {
           commit("TOGGLE_TOAST", {toastStatus: false})
-        }, 2000);
+        }, 3500);
       }
     }
   },

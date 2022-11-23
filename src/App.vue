@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <Toast @close-toast="closeToast" :active=toastStatus type="success" msg="Rover mosso con successo."></Toast>
+    <Toast @close-toast="closeToast" :active=toastStatus type="success" :msg=toastMessage></Toast>
   
     <Header></Header>  
     <router-view/>
@@ -23,6 +23,10 @@ export default {
   computed: {
     toastStatus() {
       return this.$store.getters.getToastStatus;
+    },
+
+    toastMessage() {
+      return this.$store.getters.getToastMessage;
     }
   },
 

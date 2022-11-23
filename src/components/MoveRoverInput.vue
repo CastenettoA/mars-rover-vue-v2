@@ -24,14 +24,17 @@ export default {
 
     async sendCommandToRover() {
       let self = this;
-      let r = await axios.post(process.env.VUE_APP_ROVER_API_BASE_URL+'roverMove', {commands:this.commands})
+      let r = await axios.post(process.env.VUE_APP_ROVER_API_BASE_URL+'roverMove', { 
+        commands: this.commands,
+        format: 'json'
+      })
         .then(function(res){ 
-          console.log(res);
-        
-          // @todo: and if i get a 403?
           self.$emit('updateMap'); // updating the map after the send of command
         })
-        .catch(function(err){ console.log(err); })
+        .catch(function(err){ 
+          // show a toast with error from server
+          self.$store.dispatch('toggleToast', {toastStatus: true, toastMessage: `${err.code}(${err.response.status} --> "${err.response.data.message}")`}); // show toast 
+        })
     }
   },
 }
