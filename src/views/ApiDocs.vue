@@ -1,9 +1,14 @@
 <template>
-  <div class="callout mb-8 p-4 max-w-lg bg-slate-100 rounded-md">
-    <p>Some description...</p>
-    <h2>Docs for: {{$route.params.path}}</h2>
-    {{currentApi}}
-  </div>
+    <h1>Specification for the endpoint <span class="rounded-md bg-amber-100 py-1 px-3">/{{$route.params.path}}</span></h1>
+
+    <p v-if="currentApi" class="mt-10 bg-slate-100 mb-2 p-2 hover:bg-slate-200">
+        <b class="underline">{{ currentApi.path }}</b> 
+       <small> ({{ currentApi.type }})</small>
+      — <i>{{ currentApi.description }}</i>
+    </p>
+    <button>call</button>
+
+    response...
 </template>
 
 <script>

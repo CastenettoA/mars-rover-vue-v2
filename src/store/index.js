@@ -1,16 +1,23 @@
 import { createStore } from 'vuex'
 import axios from 'axios';
+import { setTimeout } from 'core-js';
 
 export default createStore({
   state: {
-      apiList: [],
+      apiList: [], // api endpoint list
+      toastStatus: false // app toast message status
   },
   getters: {
     getApiList: (state) => state.apiList,
+    getToastStatus: (state) => state.toastStatus,
   },
   mutations: {
     SET_API_LIST(state, apis) {
       state.apiList = apis;
+    },
+
+    TOGGLE_TOAST(state, options) {
+      state.toastStatus = options.toastStatus
     }
   },
   actions: {
@@ -22,6 +29,17 @@ export default createStore({
           })
         .catch((e) => console.log(error));
     },
+
+    toggleToast({ commit }, options) {
+      commit("TOGGLE_TOAST", options)
+
+      // close tost after 2s
+      if(options.toastStatus == true) {
+        setTimeout(()=> {
+          commit("TOGGLE_TOAST", {toastStatus: false})
+        }, 2000);
+      }
+    }
   },
   modules: {
   }

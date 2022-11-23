@@ -1,11 +1,10 @@
-<<<<<<< HEAD
-- provare il lazy loading nei componenti axios? (animazioni on load...)
-- componente SendRoverCommands([])
 - gestire gli errori axios
+- finire /apiDocs
+- creare /move
+- rivedere 
+- creare un bel readme
+- the end!
 
-
-=======
->>>>>>> 9f528709c926eb6cc9d83acc5b5dfc48774749b1
 # mars-rover-vue-v1
 link: https://mars-rover-vue-v1.netlify.app/
 

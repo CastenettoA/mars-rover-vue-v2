@@ -1,18 +1,38 @@
 <template>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav> -->
-  <Header></Header>  
-  <router-view/>
+  <div class="relative">
+    <Toast @close-toast="closeToast" :active=toastStatus type="success" msg="Rover mosso con successo."></Toast>
+  
+    <Header></Header>  
+    <router-view/>
+  </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Toast from './components/utils/Toast.vue'
 
 export default {
   components: {
-    Header
+    Header, Toast
+  },
+  data() {
+    return {
+    }
+  },
+
+  computed: {
+    toastStatus() {
+      return this.$store.getters.getToastStatus;
+    }
+  },
+
+  methods: {
+    closeToast() {
+      this.$store.dispatch('toggleToast', {
+        toastStatus: false
+      })
+      // this.toastStatus = false;
+    }
   }
 }
 </script>
