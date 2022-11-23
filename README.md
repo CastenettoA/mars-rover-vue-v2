@@ -1,19 +1,15 @@
-- gestire gli errori axios
-- finire /apiDocs
-- creare /move
-- rivedere 
-- creare un bel readme
-- the end!
-
 # mars-rover-vue-v1
 link: https://mars-rover-vue-v1.netlify.app/
 
-Lo scopo di questo progetto è sviluppare un'interfaccia frontend basata sulle API attualmente disponibili su heroku. 
+Questa è l'interfaccia front-end creata con Vue per visualizzare e muovere il rover su marte (attraverso le mars-rover-api)
 
-Le API disponibili sono queste:
-* (get) /roverInfo
-* (get) /mapInfo
-* (post) /moveRover
+## Tecnologie Utilizzate
+* Netlify come server in Continuos Demployment
+* Vue3 con le options Api, Vue Router
+* Vuex
+
+## Tecnologie non utilizzate
+* Nuxt, Composition Api, Typescript, Unit Test
 
 ## Project setup
 ```sh
