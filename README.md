@@ -1,19 +1,17 @@
-# Mars Rover (vue edition) 🪐🤖
-Website Link: https://mars-rover-vue-v1.netlify.app/
+# Mars Rover (vue edition, version 2)  🪐🤖
+Website Link: https://mars-rover-vue-v2.netlify.app/
 
 *I'm part of the team that explores Mars by sending remotely controlled vehicles to the surface of the planet. This is an API that translates the commands sent from earth to instructions that are understood by the rover.*
 
 
-Questa è l'interfaccia front-end creata con Vue per visualizzare e muovere il rover su marte (attraverso le mars-rover-api)
+Questa è l'interfaccia front-end creata con Vue per visualizzare e muovere il rover su marte (attraverso le mars-rover-api).
+A differenza della [versione 1](https://github.com/CastenettoA/mars-rover-vue-v1) questa 2° versione utilizza Typescript e le Composition Api.
 
 ## Tech Stack
 * Netlify come hosting (in CD con git. A ogni 'git push' l'app viene pubblicata nuovamente)
-* Vue - Versione 3 con Options Api, Vue Router
-* Vuex come state manager (utilizzato per creare un componente Toast globale)
+* Vue - Versione 3 con Composition Api e Typescript, Vue Router, Vuex come state manager (utilizzato per creare un componente Toast globale)
 * SCSS, TailWind e Flowbite per la parte grafica
 
-## Tecnologie non utilizzate
-* Nuxt, Composition Api, Typescript, Unit Test
 
 ## Project setup
 ```sh

@@ -7,37 +7,27 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Header from './components/Header.vue'
 import Toast from './components/utils/Toast.vue'
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  components: {
-    Header, Toast
-  },
-  data() {
-    return {
-    }
-  },
+const store = useStore();
 
-  computed: {
-    toastStatus() {
-      return this.$store.getters.getToastStatus;
-    },
+// creating a computed ref
+const toastStatus = computed(() => {
+  return store.getters.getToastStatus;
+});
 
-    toastMessage() {
-      return this.$store.getters.getToastMessage;
-    }
-  },
+const toastMessage = computed(() => {
+  return store.getters.getToastMessage;
+});
 
-  methods: {
-    closeToast() {
-      this.$store.dispatch('toggleToast', {
+function closeToast() {
+  store.dispatch('toggleToast', {
         toastStatus: false
-      })
-      // this.toastStatus = false;
-    }
-  }
+  })
 }
 </script>
 
@@ -47,12 +37,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-body {
-  // background-image: url('@/assets/spacebg.jpg');
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  // @apply bg-violet-200;
 }
 </style>

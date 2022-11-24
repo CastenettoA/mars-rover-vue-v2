@@ -7,18 +7,10 @@
     </router-link>
 </template>
 
-<script>
-export default {
-  name: 'LargeButton',
-  props: {
+<script setup>
+const props = defineProps({
     title: String,
     desc: String,
     link: String
-  }
-}
+  });
 </script>
-
-
-<style scoped lang="scss">
-
-</style>

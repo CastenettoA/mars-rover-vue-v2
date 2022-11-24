@@ -2,13 +2,8 @@
 
 </template>
 
-<script>
+<script setup>
 
-export default {
-  name: 'HomeView',
-  components: {
-  }
-}
 </script>
 
 <style scoped lang="scss">

@@ -16,14 +16,3 @@
       <span class="sr-only">Loading...</span>
     </div>
 </template>
-
-<script>
-export default {
-  name: 'Skeleton',
-}
-</script>
-
-
-<style scoped lang="scss">
-
-</style>

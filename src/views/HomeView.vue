@@ -14,15 +14,6 @@
   </div>
 </template>
 
-<script>
-import ApiList from '@/components/ApiList.vue';
-import MarsMap from '@/components/MarsMap.vue';
-import LargeButton from '@/components/utils/LargeButton.vue';
-
-export default {
-  name: 'HomeView',
-  components: {
-    ApiList, MarsMap, LargeButton
-  }
-}
+<script setup>
+  import LargeButton from '@/components/utils/LargeButton.vue';
 </script>

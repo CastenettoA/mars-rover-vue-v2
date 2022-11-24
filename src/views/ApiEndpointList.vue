@@ -7,13 +7,6 @@
   <ApiList></ApiList>
 </template>
 
-<script>
-import ApiList from '@/components/ApiList.vue';
-
-export default {
-  name: 'ApiEndpointList',
-  components: {
-    ApiList
-  }
-}
+<script setup>
+  import ApiList from '@/components/ApiList.vue';
 </script>

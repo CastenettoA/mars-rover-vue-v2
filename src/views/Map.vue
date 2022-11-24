@@ -9,13 +9,6 @@
   <MarsMap></MarsMap>
 </template>
 
-<script>
-import MarsMap from '@/components/MarsMap.vue';
-
-export default {
-  name: 'Map',
-  components: {
-    MarsMap
-  }
-}
+<script setup>
+  import MarsMap from '@/components/MarsMap.vue';
 </script>
