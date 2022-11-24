@@ -4,14 +4,14 @@
     <h2>Mappa</h2>
     <p class="subtitle text-slate-600">La mappa di Marte, con gli ostacoli <img src="@/assets/map/obstacle.png" class="w-5 inline-block">, il rover <img src="@/assets/map/rover.png" class="w-5 inline-block"> e le coordinate.</p>
 
-    <div v-if="marsMapInfo.mapGrid" class="marsMapContainer flex flex-wrap-reverse mt-4">
-      <template v-for="(pos, i) in marsMapInfo.mapGrid">
+    <div v-if="state.marsMapInfo.mapGrid" class="marsMapContainer flex flex-wrap-reverse mt-4">
+      <template v-for="(pos, i) in state.marsMapInfo.mapGrid">
           <div class="mapPoint p-2 bg-slate-200 relative border-4 border-white hover:bg-slate-400 transition-colors"
                :class="{ rover : isRover(pos), obstacle: isObstacle(pos) }"
                style="width: 64px; height: 64px;">
                <span class="mapPosition absolute bottom-0 left-0 text-xs font-bold bg-opacity-80 bg-white rounded-sm">x:{{pos.x}} y:{{pos.y}}</span>
                <span v-if="isRover(pos)" class="rover-img"><img src="@/assets/map/rover.png" alt="i'm the rover, folks!"></span>
-               <span v-if="isRover(pos)" class="rover-direction font-bold text-3xl" :class="this.marsMapInfo.roverDirection">&laquo;</span>
+               <span v-if="isRover(pos)" class="rover-direction font-bold text-3xl" :class="state.marsMapInfo.roverDirection">&laquo;</span>
                <span v-if="isObstacle(pos)" class="obstacle-img"><img src="@/assets/map/obstacle.png" alt="is a strange obstacle in the map"></span>
           </div>
           <div v-if="pos.x == 6" class="basis-full"></div> <!-- new line tricks; todo: make dynamic -->
@@ -27,51 +27,42 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios';
 import MoveRoverInput from '@/components/MoveRoverInput.vue'
 import Skeleton from '@/components/utils/Skeleton.vue'
+import { reactive, onMounted } from 'vue';
 
-export default {
-  name: 'MarsMap',
-  components: {MoveRoverInput, Skeleton},
-  data() {
-    return {
-      marsMapInfo: [],
-      marsMapCounter: 0
-    }
-  },
-  methods: {
-    /** check if the rover is in this position; return true if is. */
-    isRover(pos) {
-      return (this.marsMapInfo.roverPosition.x == pos.x && this.marsMapInfo.roverPosition.y == pos.y) ? true : false;
-    },
+const state = reactive({
+  marsMapInfo: [],
+  marsMapCounter: 0
+});
 
-    /** check if there is an obstacle is in this position; return true if is. */
-    isObstacle(pos) { // remember to DRY
-      let isThereObstacle = false;
-      let collision = (obstacle) => obstacle.x === pos.x && obstacle.y === pos.y;
-      if( this.marsMapInfo.mapGridObstacles.some(collision) ) isThereObstacle = true; else isThereObstacle = false;
-
-      return isThereObstacle;
-    },
-
-    // fetch mars map infos from the MarsRoverApi services
-    async fetchMapInfos(showToast) {
-      const r = await axios.get(process.env.VUE_APP_ROVER_API_BASE_URL + 'mapInfo');
-      this.marsMapInfo = r.data;
-
-      // if(showToast) this.$store.dispatch('toggleToast', {toastStatus: true}); // show toast
-      // todo: manage error handling
-    },
-  },
-
-  async mounted() {
-    setTimeout( async ()=> {
-      this.fetchMapInfos();
-    }, 1000)
-  }
+/** check if the rover is in this position; return true if is. */
+function isRover(pos) {
+  return (state.marsMapInfo.roverPosition.x == pos.x && state.marsMapInfo.roverPosition.y == pos.y) ? true : false;
 }
+
+/** check if there is an obstacle is in this position; return true if is. */
+function isObstacle(pos) { // todo: remember to DRY
+  let isThereObstacle = false;
+  let collision = (obstacle) => obstacle.x === pos.x && obstacle.y === pos.y;
+  if( state.marsMapInfo.mapGridObstacles.some(collision) ) isThereObstacle = true; else isThereObstacle = false;
+  return isThereObstacle;
+}
+
+/** fetch mars map infos from the MarsRoverApi services */
+async function fetchMapInfos(showToast) {
+  const r = await axios.get(process.env.VUE_APP_ROVER_API_BASE_URL + 'mapInfo');
+  state.marsMapInfo = r.data;
+  // todo: manage error handling
+}
+
+onMounted(async () => {
+  setTimeout( async () => {
+    fetchMapInfos();
+  }, 1000)
+});
 </script>
 
 
