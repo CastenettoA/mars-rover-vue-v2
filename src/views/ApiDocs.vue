@@ -11,20 +11,20 @@
     response...
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useStore } from 'vuex';
 import { reactive, computed, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const store = useStore();
 
-const state = reactive({
+const state:any = reactive({
   currentApiPath: "",
   currentApi: []
 });
 
-const apiList = computed(()=>{
+const apiList:any = computed(()=>{
   return store.getters.getApiList;
 });
 
@@ -33,13 +33,13 @@ onMounted( async () => {
 
   if(apiList.length <= 0) {
     // apiList is undefined. Do a fetch req.
-    await $store.dispatch('fetchApiList');
+    await store.dispatch('fetchApiList');
     findCurrentApi();
   } 
 });
 
 function findCurrentApi() {
-  apiList.forEach((el) => {
+  apiList.forEach((el:any) => {
     (el.path == '/' + state.currentApiPath) ? state.currentApi = el : null;
   });
 }

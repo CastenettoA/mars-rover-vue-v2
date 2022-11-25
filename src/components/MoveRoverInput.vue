@@ -7,14 +7,18 @@
     <button @click="sendCommandToRover" type="button" class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Send Command to Rover</button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import axios from 'axios';
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
 
+// const emit = defineEmits(['updateMap']);
+const emit = defineEmits<{
+ (e: 'updateMap'): void
+}>();
+
 const store = useStore();
-const emit = defineEmits(['updateMap']);
-const state = reactive({
+const state = reactive({ // todo: this can be ref due to is a simple primitive string value
   commands: ""
 });
 
@@ -23,7 +27,6 @@ function getCommands_asArray() {
 }
 
 async function sendCommandToRover() {
-  let self = this;
   let r = await axios.post(process.env.VUE_APP_ROVER_API_BASE_URL+'roverMove', { 
     commands: state.commands,
     format: 'json'

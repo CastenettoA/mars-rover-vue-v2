@@ -19,14 +19,15 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Skeleton from '@/components/utils/Skeleton.vue';
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
 
-const apiList = computed(()=> {
+// computed infers its type based on getter return value
+const apiList:any = computed(()=> {
   return store.getters.getApiList;
 })
 

@@ -22,37 +22,43 @@
 
     <h2 class="mt-10">Form per muovere il rover</h2>
     <p>Accetta i comandi (f,b,l,r). Inserisci i comandi divisi da una virgola.</p>
-    <MoveRoverInput @update-map="fetchMapInfos(true)"></MoveRoverInput>
+    <MoveRoverInput @update-map="fetchMapInfos()"></MoveRoverInput>
 
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import axios from 'axios';
 import MoveRoverInput from '@/components/MoveRoverInput.vue'
 import Skeleton from '@/components/utils/Skeleton.vue'
 import { reactive, onMounted } from 'vue';
+import { NullLiteral } from '@babel/types';
 
-const state = reactive({
+interface Point {
+  x: number,
+  y: number
+}
+
+const state:any = reactive({
   marsMapInfo: [],
   marsMapCounter: 0
 });
 
 /** check if the rover is in this position; return true if is. */
-function isRover(pos) {
+function isRover(pos: Point) {
   return (state.marsMapInfo.roverPosition.x == pos.x && state.marsMapInfo.roverPosition.y == pos.y) ? true : false;
 }
 
 /** check if there is an obstacle is in this position; return true if is. */
-function isObstacle(pos) { // todo: remember to DRY
+function isObstacle(pos: Point) { // todo: remember to DRY
   let isThereObstacle = false;
-  let collision = (obstacle) => obstacle.x === pos.x && obstacle.y === pos.y;
+  let collision = (obstacle: Point) => obstacle.x === pos.x && obstacle.y === pos.y;
   if( state.marsMapInfo.mapGridObstacles.some(collision) ) isThereObstacle = true; else isThereObstacle = false;
   return isThereObstacle;
 }
 
 /** fetch mars map infos from the MarsRoverApi services */
-async function fetchMapInfos(showToast) {
+async function fetchMapInfos() {
   const r = await axios.get(process.env.VUE_APP_ROVER_API_BASE_URL + 'mapInfo');
   state.marsMapInfo = r.data;
   // todo: manage error handling

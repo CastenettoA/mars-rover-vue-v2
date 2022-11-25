@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Header from './components/Header.vue'
 import Toast from './components/utils/Toast.vue'
 import { computed } from 'vue';

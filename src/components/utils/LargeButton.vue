@@ -7,10 +7,15 @@
     </router-link>
 </template>
 
-<script setup>
-const props = defineProps({
-    title: String,
-    desc: String,
-    link: String
-  });
+<script setup lang="ts">
+
+// type-base declaration
+// from now Vue not support import interface from other file in SFC.
+interface ButtonProps {
+  title: string,
+  desc: string,
+  link: string
+}
+
+const props = defineProps<ButtonProps>();
 </script>

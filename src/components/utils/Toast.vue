@@ -13,18 +13,14 @@
 </div>
 </template>
 
-<script>
-export default {
-  name: 'Toast',
-  props: {
-    active: Boolean,
-    msg: String, 
-    type: String
-  },
+<script setup lang="ts">
+import { defineProps } from 'vue'; //todo: is neally needed??
+
+interface ToastProps {
+  active: boolean,
+  msg: string, 
+  type: string
 }
+
+const props = defineProps<ToastProps>();
 </script>
-
-
-<style scoped lang="scss">
-
-</style>

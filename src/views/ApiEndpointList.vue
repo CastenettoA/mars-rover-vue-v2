@@ -7,6 +7,6 @@
   <ApiList></ApiList>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import ApiList from '@/components/ApiList.vue';
 </script>

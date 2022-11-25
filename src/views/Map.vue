@@ -9,6 +9,6 @@
   <MarsMap></MarsMap>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import MarsMap from '@/components/MarsMap.vue';
 </script>
