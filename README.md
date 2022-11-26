@@ -1,5 +1,4 @@
-# Mars Rover (vue edition, version 2)  🪐🤖
-**important note:** migrazione in corso. Questo repo verra integrato pienamente nel repo mars-rover-vue-v1 e poi verrà cancellato. Inutile tenere 2 repo separati sullo stesso progetto FE.
+# Mars Rover (vue edition, version 2 with Composition API)  🪐🤖
 Website Link: https://mars-rover-vue-v2.netlify.app/
 
 *I'm part of the team that explores Mars by sending remotely controlled vehicles to the surface of the planet. This is an API that translates the commands sent from earth to instructions that are understood by the rover.*
@@ -14,7 +13,7 @@ A differenza della [versione 1](https://github.com/CastenettoA/mars-rover-vue-v1
 * SCSS, TailWind e Flowbite per la parte grafica
 
 ## Nota
-Mentre l'utilizzo delle **Composition API** di Vue è pienamente completato, il refractoring del codice per utilizzare pienamente le feature di TypeScript non è ancora completato.
+Mentre l'utilizzo delle **Composition API** di Vue è pienamente implementato, il refractoring del codice per utilizzare pienamente le feature di TypeScript non è stato portato a termine.
 
 
 ## Project setup
