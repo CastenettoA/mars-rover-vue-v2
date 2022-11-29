@@ -11,7 +11,7 @@
                style="width: 64px; height: 64px;">
                <span class="mapPosition absolute bottom-0 left-0 text-xs font-bold bg-opacity-80 bg-white rounded-sm">x:{{pos.x}} y:{{pos.y}}</span>
                <span v-if="isRover(pos)" class="rover-img"><img src="@/assets/map/rover.png" alt="i'm the rover, folks!"></span>
-               <span v-if="isRover(pos)" class="rover-direction font-bold text-3xl" :class="state.marsMapInfo.roverDirection">&laquo;</span>
+               <span v-if="isRover(pos)" class="rover-direction font-bold text-3xl" :class="state.marsMapInfo.currentDirection">&laquo;</span>
                <span v-if="isObstacle(pos)" class="obstacle-img"><img src="@/assets/map/obstacle.png" alt="is a strange obstacle in the map"></span>
           </div>
           <div v-if="pos.x == 6" class="basis-full"></div> <!-- new line tricks; todo: make dynamic -->
@@ -32,7 +32,6 @@ import axios from 'axios';
 import MoveRoverInput from '@/components/MoveRoverInput.vue'
 import Skeleton from '@/components/utils/Skeleton.vue'
 import { reactive, onMounted } from 'vue';
-import { NullLiteral } from '@babel/types';
 
 interface Point {
   x: number,
@@ -46,7 +45,7 @@ const state:any = reactive({
 
 /** check if the rover is in this position; return true if is. */
 function isRover(pos: Point) {
-  return (state.marsMapInfo.roverPosition.x == pos.x && state.marsMapInfo.roverPosition.y == pos.y) ? true : false;
+  return (state.marsMapInfo.currentPosition.x == pos.x && state.marsMapInfo.currentPosition.y == pos.y) ? true : false;
 }
 
 /** check if there is an obstacle is in this position; return true if is. */
@@ -59,8 +58,13 @@ function isObstacle(pos: Point) { // todo: remember to DRY
 
 /** fetch mars map infos from the MarsRoverApi services */
 async function fetchMapInfos() {
-  const r = await axios.get(process.env.VUE_APP_ROVER_API_BASE_URL + 'mapInfo');
-  state.marsMapInfo = r.data;
+  const r = await axios.get(process.env.VUE_APP_ROVER_API_BASE_URL + 'mapInfo')
+  .then((r) => {
+    console.log('data retrived')
+    state.marsMapInfo = r.data;
+    console.log('data saved')
+  }).catch((e) => console.log('err',e));
+
   // todo: manage error handling
 }
 
