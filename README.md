@@ -1,4 +1,4 @@
-# Mars Rover (vue edition, version 2 with Composition API)  🪐🤖
+# Mars Rover (vue edition v2 with Composition API)  🪐🤖
 Website Link: https://mars-rover-vue-v2.netlify.app/
 
 *I'm part of the team that explores Mars by sending remotely controlled vehicles to the surface of the planet. This is an API that translates the commands sent from earth to instructions that are understood by the rover.*
