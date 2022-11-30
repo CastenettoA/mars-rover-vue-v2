@@ -9,8 +9,8 @@ Questa è l'interfaccia front-end creata con Vue per visualizzare e muovere il r
 ## Tech Stack
 * Netlify come hosting in continuous deployment
 * Vue con Composition Api e Typescript, Vue Router, Vuex come state manager
-* SCSS, TailWind e Flowbite per la parte grafica
 * Socket.io utilizzato per aggiornare la mappa dinamicamente quando un altro utente muove il rover.
+* SCSS, TailWind e Flowbite per la parte grafica
 
 ## Nota
 Mentre l'utilizzo delle **Composition API** di Vue è pienamente implementato, il refractoring del codice per utilizzare le feature di TypeScript non è stato portato a termine.
