@@ -5,7 +5,6 @@ Website Link: https://mars-rover-vue-v2.netlify.app/
 
 
 Questa è l'interfaccia front-end creata con Vue per visualizzare e muovere il rover su marte (attraverso le mars-rover-api).
-A differenza della [versione 1](https://github.com/CastenettoA/mars-rover-vue-v1) questa 2° versione utilizza Typescript e le Composition Api.
 
 ## Tech Stack
 * Netlify come hosting in continuous deployment
