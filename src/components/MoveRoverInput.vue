@@ -12,11 +12,6 @@ import axios from 'axios';
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
 
-// const emit = defineEmits(['updateMap']);
-const emit = defineEmits<{
- (e: 'updateMap'): void
-}>();
-
 const store = useStore();
 const state = reactive({ // todo: this can be ref due to is a simple primitive string value
   commands: ""
@@ -32,8 +27,6 @@ async function sendCommandToRover() {
     format: 'json'
   })
     .then(function(res){ 
-      console.log(res)
-      emit('updateMap'); // updating the map after the send of command
       store.dispatch('toggleToast', {toastStatus: true, toastMessage: `${res.data.message}`}); // show toast 
     })
     .catch(function(err){ 

@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'; //todo: is neally needed??
 
 interface ToastProps {
   active: boolean,

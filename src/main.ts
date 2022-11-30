@@ -7,4 +7,7 @@ import store from './store'
 import './index.css'
 import 'flowbite';
 
-createApp(App).use(store).use(router).mount('#app')
+createApp(App)
+  .use(store)
+  .use(router)
+  .mount('#app')

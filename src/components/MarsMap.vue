@@ -22,25 +22,52 @@
 
     <h2 class="mt-10">Form per muovere il rover</h2>
     <p>Accetta i comandi (f,b,l,r). Inserisci i comandi divisi da una virgola.</p>
-    <MoveRoverInput @update-map="fetchMapInfos()"></MoveRoverInput>
+    <MoveRoverInput></MoveRoverInput>
 
   </div>
 </template>
+
+<!-- <script src="/socket.io/socket.io.js"></script>
+<script>
+  // load socket.io-client
+  var socket = io();
+
+  // listening "update-map" event from server
+  socket.on('update-map', (e) => {
+    // event fired: refreshing the map.
+    // window.location.reload();
+  });
+</script> -->
 
 <script setup lang="ts">
 import axios from 'axios';
 import MoveRoverInput from '@/components/MoveRoverInput.vue'
 import Skeleton from '@/components/utils/Skeleton.vue'
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, onUnmounted, computed, watch } from 'vue';
+import { SocketioService } from '@/services/socketio';
+import { useStore } from 'vuex';
 
 interface Point {
   x: number,
   y: number
 }
 
+const store = useStore();
 const state:any = reactive({
   marsMapInfo: [],
   marsMapCounter: 0
+});
+
+/** listen to currentPosition change. */
+const currentPosition = computed(()=> {
+  return store.getters.getCurrentPosition;
+});
+
+/** When currentPosition change, the map update automatically */
+watch(currentPosition, ()=> {
+  if(currentPosition) {
+    state.marsMapInfo.currentPosition = currentPosition;
+  }
 });
 
 /** check if the rover is in this position; return true if is. */
@@ -60,9 +87,7 @@ function isObstacle(pos: Point) { // todo: remember to DRY
 async function fetchMapInfos() {
   const r = await axios.get(process.env.VUE_APP_ROVER_API_BASE_URL + 'mapInfo')
   .then((r) => {
-    console.log('data retrived')
     state.marsMapInfo = r.data;
-    console.log('data saved')
   }).catch((e) => console.log('err',e));
 
   // todo: manage error handling
@@ -70,9 +95,17 @@ async function fetchMapInfos() {
 
 onMounted(async () => {
   setTimeout( async () => {
+    SocketioService.setupStore(store);
+    SocketioService.setupSocketConnection(); // activate socket.io client instance
     fetchMapInfos();
   }, 1000)
 });
+
+onUnmounted(() => {
+  SocketioService.disconnect(); // activate socket.io client instance
+  SocketioService.destroyStore(); // activate socket.io client instance
+});
+
 </script>
 
 
