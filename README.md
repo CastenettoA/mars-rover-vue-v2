@@ -8,12 +8,13 @@ Questa è l'interfaccia front-end creata con Vue per visualizzare e muovere il r
 A differenza della [versione 1](https://github.com/CastenettoA/mars-rover-vue-v1) questa 2° versione utilizza Typescript e le Composition Api.
 
 ## Tech Stack
-* Netlify come hosting (in CD con git. A ogni 'git push' l'app viene pubblicata nuovamente)
-* Vue - Versione 3 con Composition Api e Typescript, Vue Router, Vuex come state manager (utilizzato per creare un componente Toast globale)
+* Netlify come hosting in continuous deployment
+* Vue con Composition Api e Typescript, Vue Router, Vuex come state manager
 * SCSS, TailWind e Flowbite per la parte grafica
+* Socket.io utilizzato per aggiornare la mappa dinamicamente quando un altro utente muove il rover.
 
 ## Nota
-Mentre l'utilizzo delle **Composition API** di Vue è pienamente implementato, il refractoring del codice per utilizzare pienamente le feature di TypeScript non è stato portato a termine.
+Mentre l'utilizzo delle **Composition API** di Vue è pienamente implementato, il refractoring del codice per utilizzare le feature di TypeScript non è stato portato a termine.
 
 
 ## Project setup
